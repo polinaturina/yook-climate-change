@@ -1,0 +1,20 @@
+{
+  "name": "yook/yook-climate-change",
+  "license": "proprietary",
+  "require": {
+    "php": "~8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Yook\\YookCodeChallenge\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Yook\\YookCodeChallenge\\UnitTest\\": "tests/unit"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.3"
+  }
+}
