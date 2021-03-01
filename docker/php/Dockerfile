@@ -10,3 +10,6 @@ RUN docker-php-ext-install pcntl
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 COPY ./src /var/www/src
+COPY ./script/runTask.php /var/www/script/runTask.php
+
+CMD php /var/www/script/runTask.php
