@@ -12,4 +12,5 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 COPY ./src /var/www/src
 COPY ./script/runTask.php /var/www/script/runTask.php
 
+WORKDIR /var/www
 CMD php /var/www/script/runTask.php
