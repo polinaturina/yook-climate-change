@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace Yook\YookCodeChallenge\Value;
 
-use JetBrains\PhpStorm\Pure;
-
 class OffsettingAmountEuro
 {
     private float $euro;
@@ -14,8 +12,7 @@ class OffsettingAmountEuro
         $this->euro = $euro;
     }
 
-    #[Pure]
-    public function asFloat(): float
+    public function asDecimal(): float
     {
         return $this->euro;
     }

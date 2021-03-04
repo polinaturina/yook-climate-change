@@ -3,15 +3,19 @@ declare(strict_types=1);
 
 namespace Yook\YookCodeChallenge;
 
-use Yook\YookCodeChallenge\Algorithm\OffsettPercentCalculator;
-use Yook\YookCodeChallenge\Value\UserInput;
+use Yook\YookCodeChallenge\CarbonOffsettingEngine\CategoryOffsettingResolver;
 
 class CarbonOffsettingProcessor
 {
-    private OffsettPercentCalculator $percentCalculator;
+    private CategoryOffsettingResolver $categoryOffsettingResolver;
 
-    public function process(UserInput $userInput): void
+    public function __construct(CategoryOffsettingResolver $categoryOffsettingResolver)
     {
+        $this->categoryOffsettingResolver = $categoryOffsettingResolver;
+    }
 
+    public function process(): void
+    {
+       $this->categoryOffsettingResolver->calculate();
     }
 }

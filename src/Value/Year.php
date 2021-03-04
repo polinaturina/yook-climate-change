@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Yook\YookCodeChallenge\Value;
 
 use DateTime;
-use JetBrains\PhpStorm\Pure;
 use Yook\YookCodeChallenge\Value\Exception\InvalidDateTimeException;
 
 class Year
@@ -13,23 +12,27 @@ class Year
     private const LOWEST_YEAR_LIMIT = 2020;
     private const HIGHEST_YEAR_LIMIT = 2050;
 
-    private DateTime $dateTime;
+    private string $year;
 
     public function __construct(DateTime $dateTime)
     {
-        $this->ensureValidYear($dateTime);
-        $this->dateTime = $dateTime;
+        $year = date_format($dateTime, self::REPRESENTATION_OF_THE_YEAR);
+        $this->ensureValidYear($year);
+        $this->year = $year;
     }
 
-    #[Pure]
+    public function asInteger(): int
+    {
+        return (int)$this->year;
+    }
+
     public function asString(): string
     {
-        return date_format($this->dateTime, self::REPRESENTATION_OF_THE_YEAR);
+        return $this->year;
     }
 
-    private function ensureValidYear(DateTime $dateTime): void
+    private function ensureValidYear(string $year): void
     {
-        $year = date_format($dateTime, self::REPRESENTATION_OF_THE_YEAR);
         if ($year >= self::LOWEST_YEAR_LIMIT && $year <= self::HIGHEST_YEAR_LIMIT) {
             return;
         }
