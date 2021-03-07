@@ -5,6 +5,7 @@ namespace Yook\YookCodeChallenge;
 
 use GuzzleHttp\Client;
 use Yook\YookCodeChallenge\CarbonOffsettingEngine\CategoryOffsettingResolver;
+use Yook\YookCodeChallenge\Partnership\PartnerCollectionWithMinimumOffsettingPriceByCategoryBuilder;
 use Yook\YookCodeChallenge\Partnership\PartnerLocator;
 use Yook\YookCodeChallenge\Partnership\PartnerSelectorClient;
 use Yook\YookCodeChallenge\Partnership\PartnerCollectionBuilder;
@@ -70,5 +71,10 @@ class Factory
     public function createPartnershipProcessor(PartnerCollection $collection): PartnershipProcessor
     {
         return new PartnershipProcessor($collection);
+    }
+
+    public function createPartnerCollectionWithMinimumOffsettingPriceByCategoryBuilder(PartnerCollection $collection): PartnerCollectionWithMinimumOffsettingPriceByCategoryBuilder
+    {
+        return new PartnerCollectionWithMinimumOffsettingPriceByCategoryBuilder($this->createPartnershipProcessor($collection));
     }
 }

@@ -13,11 +13,11 @@ use Yook\YookCodeChallenge\Partnership\Value\Category\Category;
 class PartnerCollection implements IteratorAggregate
 {
     /**
-     * @var array<int, RegularPartner>
+     * @var array<int, Partner>
      */
     private array $partners = [];
 
-    public function addPartner(RegularPartner $partner): void
+    public function addPartner(Partner $partner): void
     {
         $key = (string) $partner->getIdentifier()->asInt();
 
@@ -29,7 +29,7 @@ class PartnerCollection implements IteratorAggregate
     }
 
     /**
-     * @return ArrayIterator|array<int, RegularPartner>|RegularPartner[]
+     * @return ArrayIterator|array<int, Partner>|Partner[]
      */
     public function getIterator(): ArrayIterator
     {
@@ -54,7 +54,7 @@ class PartnerCollection implements IteratorAggregate
         return count($this->partners);
     }
 
-    public function getFirst(): RegularPartner
+    public function getFirst(): Partner
     {
         if ($this->count() < 1) {
             $message = 'Unable to retrieve first object from an empty collection';
@@ -66,7 +66,7 @@ class PartnerCollection implements IteratorAggregate
         return $this->current();
     }
 
-    public function getElement(int $key): RegularPartner
+    public function getElement(int $key): Partner
     {
         if (!$this->hasElementWithInternalKey($key)) {
             $message = sprintf('Key "%s" does not exist in collection', $key);
@@ -86,7 +86,7 @@ class PartnerCollection implements IteratorAggregate
         reset($this->partners);
     }
 
-    private function current(): RegularPartner
+    private function current(): Partner
     {
         return current($this->partners);
     }

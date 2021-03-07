@@ -23,17 +23,7 @@ class PartnershipProcessor
         $this->partnerCollection = $partnerCollection;
     }
 
-    public function process(): array
-    {
-        return [
-            $this->getPartnerWithMinimumOffsettingPriceBetweenFirstAndSecondCategory(),
-            $this->getPartnerWithMinimumOffsettingPriceByCategory(new EmissionReductionWithLongLivedStorage()),
-            $this->getPartnerWithMinimumOffsettingPriceByCategory(new CarbonRemovalWithShortLivedStorage()),
-            $this->getPartnerWithMinimumOffsettingPriceByCategory(new CarbonRemovalWithLongLivedStorage()),
-        ];
-    }
-
-    private function getPartnerWithMinimumOffsettingPriceByCategory(Category $category): Partner
+    public function getPartnerWithMinimumOffsettingPriceByCategory(Category $category): Partner
     {
         $partnerCollection = $this->partnerCollection->findMatchingPartners($category);
 
@@ -61,7 +51,7 @@ class PartnershipProcessor
         return $partnerCollection->getElement($key);
     }
 
-    private function getPartnerWithMinimumOffsettingPriceBetweenFirstAndSecondCategory(): RegularPartner
+    public function getPartnerWithMinimumOffsettingPriceBetweenFirstAndSecondCategory(): Partner
     {
         $partnersFromCategoryOne = $this->getPartnerWithMinimumOffsettingPriceByCategory(new AvoidedEmissionCategory());
         $partnersFromCategoryTwo = $this->getPartnerWithMinimumOffsettingPriceByCategory(new EmissionProductionWithShortLivedStorage());

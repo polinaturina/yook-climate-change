@@ -17,10 +17,9 @@ $partnershipSelectorClient = $factory->createPartnerSelectorClient();
 $builder = $factory->createPartnerCollectionBuilder();
 $collection = $builder->build($partnershipSelectorClient->getPartnershipPayload());
 
-$processor = $factory->createPartnershipProcessor($collection);
-$test = $processor->process();
+$test = $factory->createPartnerCollectionWithMinimumOffsettingPriceByCategoryBuilder($collection);
 //$test = $collection->findMatchingPartners(new EmissionProductionWithShortLivedStorage());
-var_dump($test);
+var_dump($test->build());
 
 die();
 $userInput = $factory->createUserInput($year, $offsettingEur);
