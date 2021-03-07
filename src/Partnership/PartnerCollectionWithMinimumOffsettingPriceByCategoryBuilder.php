@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Yook\YookCodeChallenge\Partnership;
 
-
 use Yook\YookCodeChallenge\Partnership\Value\Category\CarbonRemovalWithLongLivedStorage;
 use Yook\YookCodeChallenge\Partnership\Value\Category\CarbonRemovalWithShortLivedStorage;
 use Yook\YookCodeChallenge\Partnership\Value\Category\EmissionReductionWithLongLivedStorage;
