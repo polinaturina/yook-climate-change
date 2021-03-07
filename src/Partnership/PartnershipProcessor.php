@@ -23,6 +23,8 @@ class PartnershipProcessor
         $this->partnerCollection = $partnerCollection;
     }
 
+
+
     public function getPartnerWithMinimumOffsettingPriceByCategory(Category $category): Partner
     {
         $partnerCollection = $this->partnerCollection->findMatchingPartners($category);

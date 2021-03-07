@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Yook\YookCodeChallenge\Value;
+namespace Yook\YookCodeChallenge\CarbonOffsettingEngine\Value;
 
 class OffsettingAmountEuro
 {

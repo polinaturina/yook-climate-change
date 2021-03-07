@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Yook\YookCodeChallenge\CarbonOffsettingEngine;
 
-use Yook\YookCodeChallenge\Value\UserInput;
+use Yook\YookCodeChallenge\CarbonOffsettingEngine\Value\UserInput;
 
 class CategoryOffsettingResolver
 {

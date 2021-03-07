@@ -5,16 +5,15 @@ namespace Yook\YookCodeChallenge;
 
 use GuzzleHttp\Client;
 use Yook\YookCodeChallenge\CarbonOffsettingEngine\CategoryOffsettingResolver;
-use Yook\YookCodeChallenge\Partnership\PartnerCollectionWithMinimumOffsettingPriceByCategoryBuilder;
+use Yook\YookCodeChallenge\CarbonOffsettingEngine\Value\OffsettingAmountEuro;
+use Yook\YookCodeChallenge\CarbonOffsettingEngine\Value\UserInput;
+use Yook\YookCodeChallenge\CarbonOffsettingEngine\Value\Year;
+use Yook\YookCodeChallenge\Partnership\PartnerCollectionMinimumPriceBuilder;
 use Yook\YookCodeChallenge\Partnership\PartnerLocator;
 use Yook\YookCodeChallenge\Partnership\PartnerSelectorClient;
 use Yook\YookCodeChallenge\Partnership\PartnerCollectionBuilder;
 use Yook\YookCodeChallenge\Partnership\PartnershipPayloadMapper;
-use Yook\YookCodeChallenge\Partnership\PartnershipProcessor;
-use Yook\YookCodeChallenge\Partnership\Value\PartnerCollection;
-use Yook\YookCodeChallenge\Value\OffsettingAmountEuro;
-use Yook\YookCodeChallenge\Value\UserInput;
-use Yook\YookCodeChallenge\Value\Year;
+use Yook\YookCodeChallenge\Partnership\Factory as PartnershipFactory;
 
 class Factory
 {
@@ -25,7 +24,10 @@ class Factory
 
     public function createCarbonOffsettingApplication(UserInput $userInput): CarbonOffsettingApplication
     {
-        return new CarbonOffsettingApplication($this->createCarbonOffsettingProcessor($userInput));
+        return new CarbonOffsettingApplication(
+            $this->createCarbonOffsettingProcessor($userInput),
+            $this->createPartnershipOffsettingProcessor()
+        );
     }
 
     private function createCarbonOffsettingProcessor(UserInput $userInput): CarbonOffsettingProcessor
@@ -68,13 +70,23 @@ class Factory
         return new PartnerLocator();
     }
 
-    public function createPartnershipProcessor(PartnerCollection $collection): PartnershipProcessor
+    private function createPartnershipOffsettingProcessor(): PartnershipOffsettingProcessor
     {
-        return new PartnershipProcessor($collection);
+        return new PartnershipOffsettingProcessor(
+            $this->createPartnerSelectorClient(),
+            $this->createPartnerCollectionBuilder(),
+            $this->createPartnershipFactory(),
+            $this->createPartnerCollectionMinimumPriceBuilder()
+        );
     }
 
-    public function createPartnerCollectionWithMinimumOffsettingPriceByCategoryBuilder(PartnerCollection $collection): PartnerCollectionWithMinimumOffsettingPriceByCategoryBuilder
+    private function createPartnershipFactory(): PartnershipFactory
     {
-        return new PartnerCollectionWithMinimumOffsettingPriceByCategoryBuilder($this->createPartnershipProcessor($collection));
+        return new PartnershipFactory();
+    }
+
+    private function createPartnerCollectionMinimumPriceBuilder(): PartnerCollectionMinimumPriceBuilder
+    {
+        return new PartnerCollectionMinimumPriceBuilder();
     }
 }
