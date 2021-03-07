@@ -6,15 +6,14 @@ namespace Yook\YookCodeChallenge\Partnership\Value;
 use ArrayIterator;
 use IteratorAggregate;
 use Yook\YookCodeChallenge\Exception\DuplicatedKeyException;
+use Yook\YookCodeChallenge\Partnership\Value\Category\Category;
 
 class PartnerCollection implements IteratorAggregate
 {
-
     /**
      * @var array<int, Partner>
      */
     private array $partners = [];
-
 
     public function addPartner(Partner $partner): void
     {
@@ -35,18 +34,16 @@ class PartnerCollection implements IteratorAggregate
         return new ArrayIterator($this->partners);
     }
 
-//    /**
-//     * @return array<string, Partner>
-//     */
-//    public function getFirstCategegoryCollection()
-//    {
-//        $collection = [];
-//        foreach ($this->partners as $partner) {
-//            if ($partner->getCatgory()->getNumber() === 1) {
-//                $collection[] = $partner;
-//            }
-//        }
-//
-//        return $collection;
-//    }
+    public function findMatchingPartners(Category $category): PartnerCollection
+    {
+        $collection = new self();
+
+        foreach ($this->partners as $partner) {
+            if ($partner->getCategory()->getIdentifier() === $category->getIdentifier()) {
+                $collection->addPartner($partner);
+            }
+        }
+
+        return $collection;
+    }
 }

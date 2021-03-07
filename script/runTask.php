@@ -1,6 +1,7 @@
 <?php
 
 use Yook\YookCodeChallenge\Factory;
+use Yook\YookCodeChallenge\Partnership\Value\Category\AvoidedEmissionCategory;
 use Yook\YookCodeChallenge\Value\OffsettingAmountEuro;
 use Yook\YookCodeChallenge\Value\Year;
 
@@ -14,7 +15,8 @@ $factory = new Factory();
 $partnershipSelectorClient = $factory->createPartnerSelectorClient();
 $builder = $factory->createPartnerCollectionBuilder();
 $collection = $builder->build($partnershipSelectorClient->getPartnershipPayload());
-var_dump($collection);
+
+var_dump($collection->findMatchingPartners(new AvoidedEmissionCategory()));
 
 die();
 $userInput = $factory->createUserInput($year, $offsettingEur);
