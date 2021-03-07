@@ -8,3 +8,5 @@ up:
 	docker-compose up
 psalm:
 	 docker-compose run --rm php ./vendor/bin/psalm --show-info=true
+csfixer:
+	vendor/bin/php-cs-fixer fix src

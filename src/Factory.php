@@ -3,7 +3,13 @@ declare(strict_types=1);
 
 namespace Yook\YookCodeChallenge;
 
+use GuzzleHttp\Client;
 use Yook\YookCodeChallenge\CarbonOffsettingEngine\CategoryOffsettingResolver;
+use Yook\YookCodeChallenge\Partnership\PartnerLocator;
+use Yook\YookCodeChallenge\Partnership\PartnerSelectorClient;
+use Yook\YookCodeChallenge\Partnership\PartnerCollectionBuilder;
+use Yook\YookCodeChallenge\Partnership\PartnershipPayloadMapper;
+use Yook\YookCodeChallenge\Partnership\Value\PartnerCollection;
 use Yook\YookCodeChallenge\Value\OffsettingAmountEuro;
 use Yook\YookCodeChallenge\Value\UserInput;
 use Yook\YookCodeChallenge\Value\Year;
@@ -28,5 +34,35 @@ class Factory
     private function createCategoryOffsettingResolver(UserInput $userInput): CategoryOffsettingResolver
     {
         return new CategoryOffsettingResolver($userInput);
+    }
+
+    public function createPartnerSelectorClient(): PartnerSelectorClient
+    {
+        return new PartnerSelectorClient(
+            $this->createHttpClient(),
+            $this->createPartnershipPayloadMapper()
+        );
+    }
+
+    private function createHttpClient(): Client
+    {
+        return new Client();
+    }
+
+    private function createPartnershipPayloadMapper(): PartnershipPayloadMapper
+    {
+        return new PartnershipPayloadMapper();
+    }
+
+    public function createPartnerCollectionBuilder(): PartnerCollectionBuilder
+    {
+        return new PartnerCollectionBuilder(
+            $this->createPartnerLocator()
+        );
+    }
+
+    private function createPartnerLocator(): PartnerLocator
+    {
+        return new PartnerLocator();
     }
 }

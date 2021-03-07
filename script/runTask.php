@@ -11,6 +11,12 @@ $offsettingEur = new OffsettingAmountEuro(5000);
 
 $factory = new Factory();
 
+$partnershipSelectorClient = $factory->createPartnerSelectorClient();
+$builder = $factory->createPartnerCollectionBuilder();
+$collection = $builder->build($partnershipSelectorClient->getPartnershipPayload());
+var_dump($collection);
+
+die();
 $userInput = $factory->createUserInput($year, $offsettingEur);
 $app = $factory->createCarbonOffsettingApplication($userInput);
 $app->run();

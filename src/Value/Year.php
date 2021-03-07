@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace Yook\YookCodeChallenge\Value;
 
 use DateTime;
-use Yook\YookCodeChallenge\Value\Exception\InvalidDateTimeException;
+use Yook\YookCodeChallenge\Exception\InvalidDateTimeException;
 
 class Year
 {
