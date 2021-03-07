@@ -15,7 +15,7 @@ use Yook\YookCodeChallenge\Partnership\Value\Country;
 use Yook\YookCodeChallenge\Partnership\Value\Description;
 use Yook\YookCodeChallenge\Partnership\Value\Identifier;
 use Yook\YookCodeChallenge\Partnership\Value\Name;
-use Yook\YookCodeChallenge\Partnership\Value\Partner;
+use Yook\YookCodeChallenge\Partnership\Value\RegularPartner;
 use Yook\YookCodeChallenge\Partnership\Value\Price;
 
 class PartnerLocator
@@ -34,7 +34,7 @@ class PartnerLocator
     private const CURRENCY_PRICE_KEY = 'currency';
     private const IDENTIFIER_KEY = 'id';
 
-    public function locate(array $item): Partner
+    public function locate(array $item): RegularPartner
     {
         switch ($this->getCategoryIdentifier($item)) {
             case self::AVOIDED_EMISSION:
@@ -57,9 +57,9 @@ class PartnerLocator
         return (int)$item[self::CATEGORY_KEY];
     }
 
-    private function getPartner(array $item, Category $category): Partner
+    private function getPartner(array $item, Category $category): RegularPartner
     {
-        return new Partner(
+        return new RegularPartner(
             new Identifier($item[self::IDENTIFIER_KEY]),
             new Name($item[self::NAME_KEY]),
             new Country($item[self::COUNTRY_KEY]),

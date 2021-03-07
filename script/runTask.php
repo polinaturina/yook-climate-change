@@ -2,6 +2,7 @@
 
 use Yook\YookCodeChallenge\Factory;
 use Yook\YookCodeChallenge\Partnership\Value\Category\AvoidedEmissionCategory;
+use Yook\YookCodeChallenge\Partnership\Value\Category\EmissionProductionWithShortLivedStorage;
 use Yook\YookCodeChallenge\Value\OffsettingAmountEuro;
 use Yook\YookCodeChallenge\Value\Year;
 
@@ -16,7 +17,10 @@ $partnershipSelectorClient = $factory->createPartnerSelectorClient();
 $builder = $factory->createPartnerCollectionBuilder();
 $collection = $builder->build($partnershipSelectorClient->getPartnershipPayload());
 
-var_dump($collection->findMatchingPartners(new AvoidedEmissionCategory()));
+$processor = $factory->createPartnershipProcessor($collection);
+$test = $processor->process();
+//$test = $collection->findMatchingPartners(new EmissionProductionWithShortLivedStorage());
+var_dump($test);
 
 die();
 $userInput = $factory->createUserInput($year, $offsettingEur);

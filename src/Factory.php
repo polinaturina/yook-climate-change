@@ -9,6 +9,7 @@ use Yook\YookCodeChallenge\Partnership\PartnerLocator;
 use Yook\YookCodeChallenge\Partnership\PartnerSelectorClient;
 use Yook\YookCodeChallenge\Partnership\PartnerCollectionBuilder;
 use Yook\YookCodeChallenge\Partnership\PartnershipPayloadMapper;
+use Yook\YookCodeChallenge\Partnership\PartnershipProcessor;
 use Yook\YookCodeChallenge\Partnership\Value\PartnerCollection;
 use Yook\YookCodeChallenge\Value\OffsettingAmountEuro;
 use Yook\YookCodeChallenge\Value\UserInput;
@@ -64,5 +65,10 @@ class Factory
     private function createPartnerLocator(): PartnerLocator
     {
         return new PartnerLocator();
+    }
+
+    public function createPartnershipProcessor(PartnerCollection $collection): PartnershipProcessor
+    {
+        return new PartnershipProcessor($collection);
     }
 }

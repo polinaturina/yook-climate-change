@@ -5,17 +5,19 @@ namespace Yook\YookCodeChallenge\Partnership\Value;
 
 use ArrayIterator;
 use IteratorAggregate;
+use Yook\YookCodeChallenge\Exception\CollectionElementDoesNotExistException;
 use Yook\YookCodeChallenge\Exception\DuplicatedKeyException;
+use Yook\YookCodeChallenge\Exception\EmptyCollectionException;
 use Yook\YookCodeChallenge\Partnership\Value\Category\Category;
 
 class PartnerCollection implements IteratorAggregate
 {
     /**
-     * @var array<int, Partner>
+     * @var array<int, RegularPartner>
      */
     private array $partners = [];
 
-    public function addPartner(Partner $partner): void
+    public function addPartner(RegularPartner $partner): void
     {
         $key = (string) $partner->getIdentifier()->asInt();
 
@@ -27,7 +29,7 @@ class PartnerCollection implements IteratorAggregate
     }
 
     /**
-     * @return ArrayIterator|array<int, Partner>|Partner[]
+     * @return ArrayIterator|array<int, RegularPartner>|RegularPartner[]
      */
     public function getIterator(): ArrayIterator
     {
@@ -45,5 +47,52 @@ class PartnerCollection implements IteratorAggregate
         }
 
         return $collection;
+    }
+
+    public function count(): int
+    {
+        return count($this->partners);
+    }
+
+    public function getFirst(): RegularPartner
+    {
+        if ($this->count() < 1) {
+            $message = 'Unable to retrieve first object from an empty collection';
+            throw new EmptyCollectionException($message);
+        }
+
+        $this->rewind();
+
+        return $this->current();
+    }
+
+    public function getElement(int $key): RegularPartner
+    {
+        if (!$this->hasElementWithInternalKey($key)) {
+            $message = sprintf('Key "%s" does not exist in collection', $key);
+            throw new CollectionElementDoesNotExistException($message);
+        }
+
+        return $this->partners[$key];
+    }
+
+    public function isEmpty(): bool
+    {
+        return $this->count() === 0;
+    }
+
+    private function rewind(): void
+    {
+        reset($this->partners);
+    }
+
+    private function current(): RegularPartner
+    {
+        return current($this->partners);
+    }
+
+    private function hasElementWithInternalKey(int $key): bool
+    {
+        return array_key_exists($key, $this->partners);
     }
 }
