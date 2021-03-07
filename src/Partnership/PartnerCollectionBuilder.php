@@ -19,6 +19,7 @@ class PartnerCollectionBuilder
     public function build(PartnershipPayload $payload): PartnerCollection
     {
         $partnerCollection = new PartnerCollection();
+        /** @var array $item */
         foreach ($payload->asArray() as $item) {
             $partner = $this->partnerLocator->locate($item);
             $partnerCollection->addPartner($partner);

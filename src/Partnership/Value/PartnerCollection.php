@@ -19,7 +19,7 @@ class PartnerCollection implements IteratorAggregate
 
     public function addPartner(Partner $partner): void
     {
-        $key = (string) $partner->getIdentifier()->asInt();
+        $key = $partner->getIdentifier()->asInt();
 
         if (isset($this->orderItems[$key])) {
             throw new DuplicatedKeyException(sprintf('Key %s was duplicated', $key));
@@ -28,9 +28,6 @@ class PartnerCollection implements IteratorAggregate
         $this->partners[$key] = $partner;
     }
 
-    /**
-     * @return ArrayIterator|array<int, Partner>|Partner[]
-     */
     public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->partners);

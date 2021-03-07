@@ -60,15 +60,40 @@ class PartnerLocator
     private function getPartner(array $item, Category $category): RegularPartner
     {
         return new RegularPartner(
-            new Identifier($item[self::IDENTIFIER_KEY]),
-            new Name($item[self::NAME_KEY]),
-            new Country($item[self::COUNTRY_KEY]),
+            $this->getIdentifier($item),
+            $this->getName($item),
+            $this->getCountry($item),
             $category,
-            new Description($item[self::DESCRIPTION_KEY]),
-            new Price(
-                (int)$item[self::PRICE_KEY][self::VALUE_PRICE_KEY],
-                $item[self::PRICE_KEY][self::CURRENCY_PRICE_KEY]
-            )
+            $this->getDescription($item),
+            $this->getPrice($item)
+        );
+    }
+
+    private function getIdentifier(array $item): Identifier
+    {
+        return new Identifier((int)$item[self::IDENTIFIER_KEY]);
+    }
+
+    private function getName(array $item): Name
+    {
+        return new Name((string)$item[self::NAME_KEY]);
+    }
+
+    private function getCountry(array $item): Country
+    {
+        return new Country((string)$item[self::COUNTRY_KEY]);
+    }
+
+    private function getDescription(array $item): Description
+    {
+        return new Description((string)$item[self::DESCRIPTION_KEY]);
+    }
+
+    private function getPrice(array $item): Price
+    {
+        return new Price(
+            (int)$item[self::PRICE_KEY][self::VALUE_PRICE_KEY],
+            (string)$item[self::PRICE_KEY][self::CURRENCY_PRICE_KEY]
         );
     }
 }

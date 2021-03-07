@@ -14,6 +14,6 @@ class PartnershipPayloadMapper
 
     private function getBodyAsArray(string $body): array
     {
-        return json_decode($body, true, 512, JSON_THROW_ON_ERROR);
+        return (array)json_decode($body, true, 512, JSON_THROW_ON_ERROR);
     }
 }
