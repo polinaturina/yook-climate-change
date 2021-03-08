@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Yook\YookCodeChallenge\CarbonOffsettingEngine\Value;
 
 use Yook\YookCodeChallenge\Exception\CollectionElementDoesNotExistException;
-use Yook\YookCodeChallenge\Partnership\Value\Category\Category;
 
 class OffsettingEuroPerCategoryCollection
 {

@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace Yook\YookCodeChallenge\Partnership;
 
 use Yook\YookCodeChallenge\Partnership\Value\Category\AvoidedEmissionCategory;
-use Yook\YookCodeChallenge\Partnership\Value\Category\CarbonRemovalWithLongLivedStorage;
-use Yook\YookCodeChallenge\Partnership\Value\Category\CarbonRemovalWithShortLivedStorage;
 use Yook\YookCodeChallenge\Partnership\Value\Category\Category;
 use Yook\YookCodeChallenge\Partnership\Value\Category\EmissionProductionWithShortLivedStorage;
-use Yook\YookCodeChallenge\Partnership\Value\Category\EmissionReductionWithLongLivedStorage;
 use Yook\YookCodeChallenge\Partnership\Value\Partner;
 use Yook\YookCodeChallenge\Partnership\Value\RegularPartner;
 use Yook\YookCodeChallenge\Partnership\Value\PartnerCollection;
@@ -22,8 +19,6 @@ class PartnershipProcessor
     {
         $this->partnerCollection = $partnerCollection;
     }
-
-
 
     public function getPartnerWithMinimumOffsettingPriceByCategory(Category $category): Partner
     {

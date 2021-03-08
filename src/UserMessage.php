@@ -3,9 +3,7 @@ declare(strict_types=1);
 
 namespace Yook\YookCodeChallenge;
 
-use Yook\YookCodeChallenge\CarbonOffsettingEngine\Value\OffsettingEuroPerCategory;
 use Yook\YookCodeChallenge\CarbonOffsettingEngine\Value\OffsettingEuroPerCategoryCollection;
-use Yook\YookCodeChallenge\CarbonOffsettingEngine\Value\UserInput;
 use Yook\YookCodeChallenge\Partnership\Value\Partner;
 use Yook\YookCodeChallenge\Partnership\Value\PartnerCollection;
 
