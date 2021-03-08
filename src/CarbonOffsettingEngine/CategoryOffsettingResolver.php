@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Yook\YookCodeChallenge\CarbonOffsettingEngine;
 
+use Yook\YookCodeChallenge\CarbonOffsettingEngine\Value\OffsettingEuroPerCategory;
+use Yook\YookCodeChallenge\CarbonOffsettingEngine\Value\OffsettingEuroPerCategoryCollection;
 use Yook\YookCodeChallenge\CarbonOffsettingEngine\Value\UserInput;
 
 class CategoryOffsettingResolver
@@ -17,18 +19,20 @@ class CategoryOffsettingResolver
         $this->userInput = $userInput;
     }
 
-    public function calculate(): array
+    public function calculate(): OffsettingEuroPerCategoryCollection
     {
-        return [
-            1 => $this->calculateEuro($this->getCategoryOneAndTwoPercent()),
-            2 => $this->calculateEuro($this->getCategoryOneAndTwoPercent()),
-            3 => $this->calculateEuro($this->getCategoryThreePercent()),
-            4 => $this->calculateEuro($this->getCategoryFourPercent()),
-            5 => $this->calculateEuro($this->getCategoryFivePercent())
-        ];
+        $collection = new OffsettingEuroPerCategoryCollection();
+
+        $collection->addOffsettingEuroPerCategory(1, $this->calculateEuro($this->getCategoryOneAndTwoPercent()));
+        $collection->addOffsettingEuroPerCategory(2, $this->calculateEuro($this->getCategoryOneAndTwoPercent()));
+        $collection->addOffsettingEuroPerCategory(3, $this->calculateEuro($this->getCategoryThreePercent()));
+        $collection->addOffsettingEuroPerCategory(4, $this->calculateEuro($this->getCategoryFourPercent()));
+        $collection->addOffsettingEuroPerCategory(5, $this->calculateEuro($this->getCategoryFivePercent()));
+
+        return $collection;
     }
 
-    private function getCategoryOneAndTwoPercent(): float
+    public function getCategoryOneAndTwoPercent(): float
     {
         return  $this->getShortLivedPercent() * ($this->getCategory4YAxis()/100);
     }
@@ -78,8 +82,10 @@ class CategoryOffsettingResolver
         return 10 / 3;
     }
 
-    private function calculateEuro(float $percent): float
+    public function calculateEuro(float $percent): OffsettingEuroPerCategory
     {
-        return round($this->userInput->getOffsettingAmountEuro()->asDecimal() * $percent / 100, self::TWO_DECIMALS_DIGIT);
+        return new OffsettingEuroPerCategory(
+            round($this->userInput->getOffsettingAmountEuro()->asDecimal() * $percent / 100, self::TWO_DECIMALS_DIGIT)
+        );
     }
 }

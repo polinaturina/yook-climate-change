@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Yook\YookCodeChallenge;
 
 use Yook\YookCodeChallenge\CarbonOffsettingEngine\CategoryOffsettingResolver;
+use Yook\YookCodeChallenge\CarbonOffsettingEngine\Value\OffsettingEuroPerCategoryCollection;
 
 class CarbonOffsettingProcessor
 {
@@ -14,7 +15,7 @@ class CarbonOffsettingProcessor
         $this->categoryOffsettingResolver = $categoryOffsettingResolver;
     }
 
-    public function process(): array
+    public function process(): OffsettingEuroPerCategoryCollection
     {
         return $this->categoryOffsettingResolver->calculate();
     }

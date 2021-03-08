@@ -26,7 +26,8 @@ class Factory
     {
         return new CarbonOffsettingApplication(
             $this->createCarbonOffsettingProcessor($userInput),
-            $this->createPartnershipOffsettingProcessor()
+            $this->createPartnershipOffsettingProcessor(),
+            $this->createUserMessage()
         );
     }
 
@@ -88,5 +89,10 @@ class Factory
     private function createPartnerCollectionMinimumPriceBuilder(): PartnerCollectionMinimumPriceBuilder
     {
         return new PartnerCollectionMinimumPriceBuilder();
+    }
+
+    private function createUserMessage(): UserMessage
+    {
+        return new UserMessage();
     }
 }
